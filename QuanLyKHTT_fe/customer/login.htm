@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ</title>
+    <!--  font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- my css -->
+    <link rel="stylesheet" href="../public/css/home.css" />
+    <link rel="stylesheet" href="../public/css/main.css" />
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- icon -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <div class="app">
+      <div class="">
+        <div class="header-admin">
+          <a href="#"><img src="../public/img/logo_lotte.png" alt="" class="logo" /></a>
+        </div>
+        <div class="row">
+          <div class="col col-6 home-white">
+            <div class="homeCenter">
+              <h2>
+                Trở thành <br />
+                khách hàng thân thiết <br />
+                của Lotte Mart
+              </h2>
+              <ion-icon
+                class="icon-right"
+                name="return-down-forward-outline"
+              ></ion-icon>
+            </div>
+          </div>
+          <div class="col col-6">
+            <div class="home-right">
+              <form action="#" method="POST" class="form" id="form-2">
+                <h3 class="heading">Đăng Nhập</h3>
+                <p class="desc">Trở thành khách hàng thân thiết</p>
+
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    placeholder="VD: email@domain.com"
+                    class="form-control"
+                  />
+                  <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="password" class="form-label">Mật khẩu</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Nhập mật khẩu"
+                    class="form-control"
+                  />
+                  <span class="form-message"></span>
+                </div>
+
+                <button class="form-submit">Đăng nhập</button>
+                <div class="login-register">
+                  <p>
+                    Bạn chưa có tài khoản?
+                    <a href="#" class="register-link">Đăng ký</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="successModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="successModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">Đăng nhập thành công!</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn-modal btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="failModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="successModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">Đăng nhập thất bại!</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn-modal btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script src="../public/script/jscript.js"></script>
+    <script>
+      //Mong muốn
+      Validator({
+        form: "#form-2",
+        errorSelector: ".form-message",
+        rules: [
+          Validator.isEmail("#email"), //1 id...có thể bị ghi đè -> js xử lý
+          Validator.minLength("#password", 6),
+        ],
+        onSubmit: function (data) {
+          console.log(data);
+        },
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const resgister = document.querySelector(".register-link");
+        resgister.addEventListener("click", function () {
+          window.location.href = "register.htm";
+        });
+
+        var formSubmits = document.getElementsByClassName("form-submit");
+        for (let i = 0; i < formSubmits.length; i++) {
+          let formSubmit = formSubmits[i];
+
+          
+          formSubmit.addEventListener("click", function () {
+            var email = document.querySelector('input[name="email"]').value;
+            var password = document.querySelector('input[name="password"]').value;
+            
+            const loginData = {
+              email: email,
+              password: password
+            };
+            console.log(loginData)
+            axios
+              .post("http://localhost:8080/api/loginCustomer", loginData)
+              .then((response) => {
+                localStorage.setItem("selectedEmail", email);
+                $("#successModal").modal("show");
+                setTimeout(function () {
+                  window.location.href = "homeCustomer.htm";
+                }, 2000);
+              })
+              .catch((error) => {
+                $("#failModal").modal("show");
+                setTimeout(function () {
+                  window.location.href = "login.htm";
+                }, 2000);
+              });
+          });
+        }
+      });
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cập nhật điểm khách hàng</title>
+    <!--  font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- my css -->
+    <link rel="stylesheet" href="../public/css/home.css" />
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- icon -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- <header> -->
+      <div class="header-admin">
+        <a href="homeAdmin.htm"
+          ><img src="../public/img/logo_lotte.png" alt="" class="logo"
+        /></a>
+
+        <div class="info-admin">
+          <h5 id="nameAdmin"></h5>
+          <img src="../public/img/user.png" class="info-admin__img" />
+          <div class="header__cart-list">
+            <ul class="header__cart-list-item">
+              <li class="header__cart-item">
+                <div class="header__cart-item-info" data-toggle="modal" data-target="#myModal">Đăng xuất</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              Bạn muốn đăng xuất?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn-modal btn " data-dismiss="modal">Ở lại</button>
+              <button type="button" class="btn-modal btn btn-danger" id="confirmDelete">Đăng xuất</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Container -->
+      <div class="container1 container">
+        <div class="allcustomer">
+          <h2 class="allcustomer-list">Tặng điểm khách hàng</h2>
+
+          <div class="update"></div>
+
+          <br /><br /><br /><br /><br />
+        </div>
+      </div>
+    </div>
+
+    <script src="../public/script/js.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const logout = document.querySelector("#confirmDelete")
+    logout.addEventListener('click', function () {
+      window.location.href = "home.htm"
+    })
+    
+        const id = localStorage.getItem("selectedCustomer");
+        axios
+          .get(`http://localhost:8080/api/admin/edit/${id}`)
+          .then((response) => {
+            const usernameElement = document.getElementById("nameAdmin");
+            usernameElement.textContent =
+              "Xin chào! " + response.data.nameAdmin;
+
+            const dataUser = response.data.dataUser;
+
+            var update = document.querySelector(".update");
+
+            update.innerHTML = `
+            <p>
+              <label class="update-label">Tên khách hàng</label>
+              <p class="w3-input">${dataUser.username}</p>
+            </p>
+            <p>
+              <label class="update-label">Điểm hiện tại</label>
+              <p class="w3-input">${formatCurrency(dataUser.point)}</p>
+            </p>
+
+            <p>
+              <label class="update-label">Hóa đơn</label>
+              <input
+              id="addcoinInput"
+                class="w3-input"
+                type="number"
+                name="addcoin" required
+              />
+            </p>
+            <br>
+            <div class="btns">
+            <button onclick="goBack()" class="allcus-button" type="submit">
+                <ion-icon name="arrow-undo-outline" ></ion-icon>
+              </button>
+            <button id="updateButton" class="allcus-button" type="submit">
+              Tặng
+            </button>
+          </div>
+        </div>
+
+          <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered"" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Cập nhật thành công!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn-modal btn btn-danger" data-dismiss="modal">Đóng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="failModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered"" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Cập nhật thất bại!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn-modal btn btn-danger" data-dismiss="modal">Đóng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            `;
+
+            var updateButton = document.getElementById("updateButton");
+
+            updateButton.addEventListener("click", function () {
+              const addcoin = document.getElementById("addcoinInput").value;
+              // Tạo đối tượng dữ liệu để gửi lên server
+              const dataToUpdate = {
+                addcoin: addcoin,
+                point: dataUser.point, // Lấy giá trị point từ dataUser
+                idKH: dataUser.idKH, // Lấy giá trị idKH từ dataUser
+              };
+
+              if (addcoin !== undefined && addcoin !== "" && addcoin >= 100) {
+                axios
+                  .post(
+                    "http://localhost:8080/api/updateCoinCustomer",
+                    dataToUpdate
+                  )
+                  .then((response) => {
+                    $("#successModal").modal("show");
+
+                    setTimeout(function () {
+                      window.location.href = "listofcustomer.htm";
+                    }, 2000);
+                  })
+                  .catch((error) => {
+                    $("#failModal").modal("show");
+                    setTimeout(function () {}, 2000);
+                    return;
+                  });
+              } else {
+                $("#failModal").modal("show");
+                setTimeout(function () {}, 2000);
+                return;
+              }
+            });
+          })
+          .catch((error) => {
+            console.error("Lỗi khi lấy thông tin khách hàng:", error);
+          });
+      });
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

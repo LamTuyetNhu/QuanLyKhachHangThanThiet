@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký</title>
+    <!--  font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- my css -->
+    <link rel="stylesheet" href="../public/css/home.css" />
+    <link rel="stylesheet" href="../public/css/main.css" />
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- icon -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <div class="app">
+      <div class="">
+        <div class="header-admin">
+          <a href="#"><img src="../public/img/logo_lotte.png" alt="" class="logo" /></a>
+        </div>
+        <div class="home-top home-right row">
+          <form action="#" method="POST" class="form form-regis" id="form-1">
+            <h3 class="heading">Đăng Ký</h3>
+            <p class="desc">Trở thành khách hàng thân thiết</p>
+
+            <div class="resForm">
+              <div class="resRight">
+                <div class="form-group">
+                  <label for="username" class="form-label">Tên của bạn</label>
+                  <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    class="form-control"
+                    placeholder="Tên đầy đủ..."
+                    required
+                  />
+                  <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="dateofbith" class="form-label">Ngày sinh</label>
+                  <input
+                    id="dateofbith"
+                    name="dateofbirth"
+                    type="date"
+                    class="form-control"
+                    required
+                  />
+                  <span class="form-message"></span>
+                </div>
+    
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    placeholder="VD: email@domain.com"
+                    class="form-control"
+                    required
+                  />
+                  <span class="form-message"></span>
+                </div>
+                
+                <div class="form-group">
+                  <label for="phonenumber" class="form-label">Số điện thoại</label>
+                  <input
+                    id="phonenumber"
+                    name="phonenumber"
+                    type="text"
+                    class="form-control"
+                    minlength="10"
+                    maxlength="10"
+                    placeholder="0xxxxxxxxx"
+                    required
+                  />
+                  <span class="form-message"></span>
+                </div>
+              </div>
+
+              <div class="resLeft">
+                <div class="form-group">
+                  <label for="address" class="form-label">Địa chỉ</label>
+                  <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                    <option value="" selected>Chọn tỉnh thành</option>
+                    </select>
+                              
+                    <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                    <option value="" selected>Chọn quận huyện</option>
+                    </select>
+                    
+                    <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                    <option value="" selected>Chọn phường xã</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                  <label for="password" class="form-label">Mật khẩu</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Nhập mật khẩu"
+                    class="form-control"
+                    required
+                  />
+                  <span class="form-message"></span>
+                </div>
+        
+                <div class="form-group">
+                  <label for="password_confirmation" class="form-label"
+                    >Nhập lại mật khẩu</label
+                  >
+                  <input
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    placeholder="Nhập lại mật khẩu"
+                    type="password"
+                    class="form-control"
+                    required
+                  />
+                  <span class="form-message"></span>
+                </div>
+             </div>
+            </div>
+
+            <button class="form-submit">Đăng ký</button>
+            <div class="login-register">
+              <p>
+                Bạn đã có tài khoản?
+                <a href="#" class="login-link">Đăng nhập</a>
+              </p>
+            </div>
+        </form>
+
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Đăng ký thành công!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn-modal btn btn-danger" data-dismiss="modal">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="failModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Đăng ký thất bại!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn-modal btn btn-danger" data-dismiss="modal">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../public/script/jscript.js"></script>
+    <script>
+       //Mong muốn
+       Validator({
+         form: "#form-1",
+         errorSelector: ".form-message",
+         rules: [
+           Validator.isRequired("#username", "Vui lòng nhập họ tên đầy đủ"),
+           Validator.isEmail("#email"), //1 id...có thể bị ghi đè -> js xử lý
+           Validator.minLength("#password", 6),
+           Validator.isRequired("#password_confirmation"),
+           Validator.isConfirmed(
+             "#password_confirmation",
+             function () {
+               return document.querySelector("#form-1 #password").value;
+             },
+             "Mật khẩu không trùng khớp"
+           ),
+         ],
+         onSubmit: function (data) {
+           console.log(data);
+         },
+       });
+     </script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+	var citis = document.getElementById("city");
+var districts = document.getElementById("district");
+var wards = document.getElementById("ward");
+var Parameter = {
+  url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json", 
+  method: "GET", 
+  responseType: "application/json", 
+};
+var promise = axios(Parameter);
+
+promise.then(function (result) {
+  renderCity(result.data);
+});
+
+  function renderCity(data) {
+  for (const x of data) {
+    citis.options[citis.options.length] = new Option(x.Name, x.Name); // Thay x.Id thành x.Name
+  }
+  citis.onchange = function () {
+    district.length = 1;
+    ward.length = 1;
+    if(this.value != ""){
+      const result = data.filter(n => n.Name === this.value); // Thay n.Id thành n.Name
+
+      for (const k of result[0].Districts) {
+        district.options[district.options.length] = new Option(k.Name, k.Name); // Thay k.Id thành k.Name
+      }
+    }
+  };
+  district.onchange = function () {
+    ward.length = 1;
+    const dataCity = data.filter((n) => n.Name === citis.value); // Thay n.Id thành n.Name
+    if (this.value != "") {
+      const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards; // Thay n.Id thành n.Name
+
+      for (const w of dataWards) {
+        wards.options[wards.options.length] = new Option(w.Name, w.Name); // Thay w.Id thành w.Name
+      }
+    }
+  };
+
+}
+	</script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const login = document.querySelector(".login-link");
+        login.addEventListener('click', function () {
+          window.location.href = "login.htm"
+        })
+
+        var formSubmits = document.getElementsByClassName("form-submit");
+        for (let i = 0; i < formSubmits.length; i++) {
+          let formSubmit = formSubmits[i];
+
+          formSubmit.addEventListener("click", function () {
+            // Get the values from the city, district, and ward selects
+            const city = document.getElementById("city").value;
+            const district = document.getElementById("district").value;
+            const ward = document.getElementById("ward").value;
+
+            var username = document.querySelector('input[name="username"]').value
+            var password = document.querySelector('input[name="password"]').value
+            var address = ward.concat(" - ", district, " - ", city)
+            var email = document.querySelector('input[name="email"]').value
+            var phonenumber = document.querySelector('input[name="phonenumber"]').value
+            var dateofbirth = document.querySelector('input[name="dateofbirth"]').value
+
+            const updateData = {
+              username: username,
+              password: password,
+              address: address,
+              email: email,
+              phonenumber: phonenumber,
+              dateofbirth: dateofbirth
+              };
+
+              const emailPattern =
+                    /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+              var currentTimestamp = new Date();
+
+              if (
+                    username.trim() === "" ||
+                    address.trim() === "" ||
+                    email.trim() === "" ||
+                    phonenumber.trim() === "" ||
+                    !emailPattern.test(email) ||
+                    phonenumber.length !== 10 ||
+                    password.length < 6 ||
+                    new Date(dateofbirth) >= currentTimestamp
+              ) {
+                    $("#failModal").modal("show");
+                      setTimeout(function () {}, 2000);
+                      return;
+              }
+
+              
+            axios
+              .post("http://localhost:8080/api/registerCustomer", updateData)
+              .then((response) => {
+                localStorage.setItem("selectedEmail", email);
+                $("#successModal").modal("show");
+                setTimeout(function () {
+                    window.location.href = "homeCustomer.htm";
+                  }, 2000);
+              })
+              .catch((error) => {
+                $("#failModal").modal("show");
+                  setTimeout(function () {}, 2000);
+              });
+          });
+        }
+      });
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cập nhật Voucher</title>
+    <!--  font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- my css -->
+    <link rel="stylesheet" href="../public/css/home.css" />
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- icon -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- <header> -->
+      <div class="header-admin">
+        <a href="homeAdmin.htm"
+          ><img src="../public/img/logo_lotte.png" alt="" class="logo"
+        /></a>
+
+        <div class="info-admin">
+          <h5 id="nameAdmin"></h5>
+          <img src="../public/img/user.png" class="info-admin__img" />
+          <div class="header__cart-list">
+            <ul class="header__cart-list-item">
+              <li class="header__cart-item">
+                <div
+                  class="header__cart-item-info"
+                  data-toggle="modal"
+                  data-target="#myModal"
+                >
+                  Đăng xuất
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">Bạn muốn đăng xuất?</div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn-modal btn" data-dismiss="modal">
+                Ở lại
+              </button>
+              <button
+                type="button"
+                class="btn-modal btn btn-danger"
+                id="confirmDelete"
+              >
+                Đăng xuất
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container -->
+      <div class="container1 container">
+        <div class="allcustomer">
+          <h2 class="allcustomer-list">Cập Nhật Voucher</h2>
+
+          <div class="update"></div>
+          <br /><br /><br /><br /><br />
+        </div>
+      </div>
+    </div>
+
+    <script src="../public/script/js.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const logout = document.querySelector("#confirmDelete");
+        logout.addEventListener("click", function () {
+          window.location.href = "home.htm";
+        });
+
+        const id = localStorage.getItem("selectedVoucher");
+
+        axios
+          .get(`http://localhost:8080/api/admin/updateVoucher/${id}`)
+          .then((response) => {
+            const usernameElement = document.getElementById("nameAdmin");
+            usernameElement.textContent =
+              "Xin chào! " + response.data.nameAdmin;
+
+            const dataVoucher = response.data.dataVoucher;
+
+            console.log(dataVoucher);
+
+            var update = document.querySelector(".update");
+
+            update.innerHTML = `
+            <p>
+      <label class="update-label">Tên Voucher</label>
+      <input
+        class="w3-input"
+        type="text"
+        name="nameVoucher"
+        value="${dataVoucher.nameVoucher}"
+        required
+      />
+    </p>
+    <p>
+      <label class="update-label">Số lượng</label>
+      <input
+        class="w3-input"
+        type="number"
+        name="soluong"
+        value="${dataVoucher.soluong}"
+        required
+      />
+    </p>
+    <p>
+      <label class="update-label">Giảm</label>
+      <input
+        class="w3-input"
+        type="number"
+        name="giam"
+        value="${dataVoucher.giam}"
+        required
+      />
+    </p>
+    <p>
+      <label class="update-label">Tối đa</label>
+      <input
+        class="w3-input"
+        type="number"
+        name="toida"
+        value="${dataVoucher.toida}"
+        required
+      />
+    </p>
+    <p>
+      <label class="update-label">Người tạo</label>
+      <input
+        class="w3-input"
+        type="text"
+        name="nguoitao"
+        value="${dataVoucher.nguoitao}"
+        required
+      />
+    </p>
+    <p>
+      <label class="update-label">Ngày tạo</label>
+      <p class="w3-input">${dataVoucher.formatted_ngaytao}</p>
+    </p>
+    <p>
+      <label class="update-label">Ngày hết hạn</label>
+      <p class="w3-input">${dataVoucher.formatted_ngayhethan}</p>
+    </p>
+    <br />
+    <div class="btns">
+      <button id="updateVou" class="allcus-button" type="submit">
+        Cập nhật
+      </button>
+      <button onclick="goBack()" class="allcus-button" type="submit">
+                Hủy
+      </button>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered"" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Cập nhật thành công!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn-modal btn btn-danger" data-dismiss="modal">Đóng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="failModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered"" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Cập nhật thất bại!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn-modal btn btn-danger" data-dismiss="modal">Đóng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+                     `;
+
+            var updateVou = document.getElementById("updateVou");
+
+            updateVou.addEventListener("click", function () {
+              var nameVoucher = document.querySelector(
+                'input[name="nameVoucher"]'
+              ).value;
+              var soluong = document.querySelector(
+                'input[name="soluong"]'
+              ).value;
+              var giam = document.querySelector('input[name="giam"]').value;
+              var toida = document.querySelector('input[name="toida"]').value;
+              var nguoitao = document.querySelector(
+                'input[name="nguoitao"]'
+              ).value;
+              // var ngaytao = document.querySelector(
+              //   'input[name="ngaytao"]'
+              // ).value;
+              // var ngayhethan = document.querySelector(
+              //   'input[name="ngayhethan"]'
+              // ).value;
+
+              // var dateRegex =
+              //   /^\d{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;
+
+              var currentTimestamp = new Date();
+
+              if (
+                nameVoucher.trim() === "" ||
+                soluong.trim() === "" ||
+                soluong <= 0 ||
+                giam.trim() === "" ||
+                toida.trim() === "" ||
+                nguoitao.trim() === ""
+                // ngaytao.trim() === "" ||
+                // ngayhethan.trim() === "" ||
+                // !dateRegex.test(ngaytaoNew) ||
+                // !dateRegex.test(ngayhethanNew) ||
+                // new Date(ngaytaoNew) > new Date(ngayhethanNew) ||
+                // new Date(ngayhethanNew) <= currentTimestamp
+              ) {
+                $("#failModal").modal("show");
+                setTimeout(function () {}, 2000);
+                return;
+              }
+
+              const updateData = {
+                idVoucher: id,
+                nameVoucher: nameVoucher,
+                soluong: soluong,
+                giam: giam,
+                toida: toida,
+                nguoitao: nguoitao,
+              };
+
+              axios
+                .post("http://localhost:8080/api/updateVoucher", updateData)
+                .then((response) => {
+                  $("#successModal").modal("show");
+                  setTimeout(function () {
+                    window.location.href = "listofvoucher.htm";
+                  }, 2000);
+                })
+                .catch((error) => {
+                  $("#failModal").modal("show");
+
+                  setTimeout(function () {}, 2000);
+                });
+            });
+          })
+          .catch((error) => {
+            alert("Không thể tải trang cập nhật");
+            window.location.href = "listofvoucher.htm";
+          });
+      });
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
